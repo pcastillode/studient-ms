@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: studient-ms
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/db-studient
+    username: postgres
+    password: 123456
+    initialization-mode: always
