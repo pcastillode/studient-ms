@@ -10,7 +10,6 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,8 +35,8 @@ public class StudientController {
                     content = @Content(schema = @Schema(implementation = Studient.class)))
     })
     @PostMapping(consumes = "application/json", produces = "application/json")
-    public Mono<ResponseEntity<Studient>> create(@RequestBody Studient request){
-        return studientService.save(request).map(studient -> ResponseEntity.status(201).body(studient));
+    public Mono<Studient> create(@RequestBody Studient request){
+        return studientService.save(request);
     }
 
     @Operation(summary = "Find all studients", description = "Returns all studients")
@@ -56,8 +55,8 @@ public class StudientController {
                     content = @Content(schema = @Schema(implementation = Studient.class)))
     })
     @GetMapping(value = "/{id}", produces = "application/json")
-    public Mono<ResponseEntity<Studient>> getById(@PathVariable("id") Long id) {
-        return studientService.findById(id).map(studient -> ResponseEntity.status(200).body(studient));
+    public Mono<Studient> getById(@PathVariable("id") Long id) {
+        return studientService.findById(id);
     }
 
     @Operation(summary = "Update an existing studient", description = "Returns a single studient updated")
@@ -66,8 +65,8 @@ public class StudientController {
                     content = @Content(schema = @Schema(implementation = Studient.class)))
     })
     @PutMapping(value = "/{id}", consumes = "application/json", produces = "application/json")
-    public Mono<ResponseEntity<Studient>> update(@PathVariable ("id") Long id, @RequestBody Studient request){
-        return studientService.update(id, request).map(studient -> ResponseEntity.status(200).body(studient));
+    public Mono<Studient> update(@PathVariable ("id") Long id, @RequestBody Studient request){
+        return studientService.update(id, request);
     }
 
     @Operation(summary = "Delete an existing studient", description = "")
@@ -75,7 +74,7 @@ public class StudientController {
             @ApiResponse(responseCode = "200", description = "Successfully operation")
     })
     @DeleteMapping("/{id}")
-    public Mono<ResponseEntity<Void>> delete(@PathVariable ("id") Long id){
-        return studientService.delete(id).map(ResponseEntity::ok);
+    public Mono<Void> delete(@PathVariable ("id") Long id){
+        return studientService.delete(id);
     }
 }
